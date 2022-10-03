@@ -13,6 +13,7 @@ class Game extends Component {
       dice: Array.from({ length: NUM_DICE }),
       locked: Array(NUM_DICE).fill(false),
       rollsLeft: NUM_ROLLS,
+      rolling : false,
       scores: {
         ones: undefined,
         twos: undefined,
@@ -42,9 +43,18 @@ class Game extends Component {
         st.locked[i] ? d : Math.ceil(Math.random() * 6)
       ),
       locked: st.rollsLeft > 1 ? st.locked : Array(NUM_DICE).fill(true),
-      rollsLeft: st.rollsLeft - 1
+      rollsLeft: st.rollsLeft - 1,
+      rolling: true
     }));
   }
+  this.forceUpdate();
+  console.log(`from the game pt1 ${this.state.rolling}`);
+  this.setState({rolling : true})
+  console.log(`from the game pt2 ${this.state.rolling}`);
+
+
+  const myTimeout = setTimeout(this.setState({rolling : false}), 10000)
+  myTimeout;
   }
 
   toggleLocked(idx) {
@@ -79,6 +89,7 @@ class Game extends Component {
               dice={this.state.dice}
               locked={this.state.locked}
               handleClick={this.toggleLocked}
+              rolling={this.state.rolling}
             />
             <div className='Game-button-wrapper'>
               <button

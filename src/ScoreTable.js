@@ -22,6 +22,16 @@ class ScoreTable extends Component {
       "Yahtzee": "If all values match, score 50",
       "Chance": "Sum of all dice"
     }
+    this.getTotalScore = this.getTotalScore.bind(this);
+  }
+  
+  getTotalScore(){
+    const {scores} = this.props;
+    let totalScore = 0; 
+    for (let key in scores){
+      if (scores[key]) totalScore += scores[key];   //Done this way because the values in score are null to begin 
+    }
+    return totalScore; 
   }
 
 
@@ -57,6 +67,8 @@ class ScoreTable extends Component {
             </tbody>
           </table>
         </section>
+
+        <h2>Total Score: {this.getTotalScore()} </h2>
       </div>
     )
   }
